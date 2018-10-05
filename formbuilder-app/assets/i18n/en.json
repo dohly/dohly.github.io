@@ -1,0 +1,21 @@
+{
+  "APP_NAME": "Form Builder APP",
+  "SET_API_ADDRESS": "Setup API (backend) address",
+  "API_ADDRESS": "API URL",
+  "CONNECT": "Connect & next",
+  "CONNECTING": "Connecting...",
+  "CONNECT_ERROR": "Couldn't connect. You've specified wrong address or backend is not running.",
+  "LOGIN": "Log in",
+  "BACK": "Back",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "SELECT_TEST_USER": "Use test credentials",
+  "INVALID_CREDENTIALS": "Invalid credentials",
+  "DONE": "Done",
+  "READY_TO_WORK": "Congratulations! Now you can start work",
+  "START": "Get started",
+  "FORMS-LIST": {
+    "NAME": "Form name",
+    "FIELDS_COUNT": "Fields count"
+  }
+}
