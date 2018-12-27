@@ -6,7 +6,7 @@
 Welcome to Записки F# дилетанта's documentation!
 ================================================
 
-Contents:
+Contents!==):
 
 .. toctree::
    :maxdepth: 2

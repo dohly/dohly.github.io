@@ -279,3 +279,5 @@ if "%1" == "dummy" (
 )
 
 :end
+
+move.bat
