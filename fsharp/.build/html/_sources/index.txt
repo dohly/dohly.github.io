@@ -1,10 +1,10 @@
-.. FSharpDiletant documentation master file, created by
-   sphinx-quickstart on Thu Dec 27 23:18:30 2018.
+.. Записки F# дилетанта documentation master file, created by
+   sphinx-quickstart on Thu Dec 27 23:43:53 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Добро пожаловать в заметки FSharp-дилетанта!
-==========================================
+Welcome to Записки F# дилетанта's documentation!
+================================================
 
 Contents:
 
