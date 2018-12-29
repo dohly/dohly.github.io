@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Array.reduce / Array.fold &mdash; Документация Записки F# дилетанта 1.0</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Документация Записки F# дилетанта 1.0" href="../index.html" />
+    <link rel="prev" title="Array.zip" href="zip.html" />
+  <meta name="yandex-verification" content="f80cba4c1e14f3ea" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125972316-1"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-125972316-1');
+  </script>
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="array-reduce-array-fold">
+<h1>Array.reduce / Array.fold<a class="headerlink" href="#array-reduce-array-fold" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="array-reduce">
+<h2>Array.reduce<a class="headerlink" href="#array-reduce" title="Ссылка на этот заголовок">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/reduce.gif"><img alt="../_images/reduce.gif" src="../_images/reduce.gif" style="height: 200px;" /></a>
+<p>Функция <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.reduce%5B%27t%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.reduce</a>
+является своеобразной альтернативой циклам.
+Она последовательно применяет функцию, которую вы пожелаете, к каждому из элементов массива.
+Массив при этом должен иметь хотя бы 1 элемент. В противном случае получим исключение.</p>
+<dl class="docutils">
+<dt>Принцип работы reduce примерно такой:</dt>
+<dd><ol class="first last arabic simple">
+<li>Запоминаем значение первого элемента массива в переменную acc (аккумулятор)</li>
+<li>Вызываем функцию f и передаем в нее два аргумента: аккумулятор и следующий элемент массива</li>
+<li>Записываем в переменную acc значение, полученное на предыдущем шаге.</li>
+<li>Повторяем шаги 2 и 3 до тех пор, пока не достигнем конца массива.</li>
+<li>Возвращаем значение аккумулятора.</li>
+</ol>
+</dd>
+</dl>
+<p>Не трудно заметить, что основным недостатком функции reduce является то,
+что тип возвращаемого результата должен совпадать с типом элемента массива.</p>
+<p>Если у вас массив строк - то результатом reduce может быть только строка.</p>
+<p>Но не стоит отчаиваться, ведь есть более гибкая версия этой функции - Array.fold</p>
+</div>
+<div class="section" id="array-fold">
+<h2>Array.fold<a class="headerlink" href="#array-fold" title="Ссылка на этот заголовок">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/fold.png"><img alt="../_images/fold.png" src="../_images/fold.png" style="height: 300px;" /></a>
+<p>Принцип работы <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.fold%5B%27t,%27state%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.fold</a> такой же как у reduce, за исключением того, что аккумулятор инициализируете уже вы сами.
+Тип аккумулятора, и, следовательно, тип возвращаемого значения, может отличаться от типа элемента массива.</p>
+<p>Например, если у вас массив строк, то результатом может быть массив каких-либо объектов, чисел и т.д.</p>
+<p>На базе Array.fold работают более изощренные функции, такие как Array.fold2, Array.foldBack</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/fsharp.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../index.html">Оглавление</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="zip.html">Array.zip</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Array.reduce / Array.fold</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#array-reduce">Array.reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#array-fold">Array.fold</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="zip.html" title="предыдущая глава">Array.zip</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Ivan Marinin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/Array/reduce.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
