@@ -84,8 +84,15 @@
 <div class="section" id="array-fold">
 <h2>Array.fold<a class="headerlink" href="#array-fold" title="Ссылка на этот заголовок">¶</a></h2>
 <a class="reference internal image-reference" href="../_images/fold.png"><img alt="../_images/fold.png" src="../_images/fold.png" style="height: 300px;" /></a>
-<p>Принцип работы <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.fold%5B%27t,%27state%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.fold</a> такой же как у reduce, за исключением того, что аккумулятор инициализируете уже вы сами.
-Тип аккумулятора, и, следовательно, тип возвращаемого значения, может отличаться от типа элемента массива.</p>
+<p>Принцип работы <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.fold%5B%27t,%27state%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.fold</a>
+почти такой же как у reduce. Основные отличия:</p>
+<blockquote>
+<div><ul class="simple">
+<li>аккумулятор инициализируете вы сами</li>
+<li>функция f применяется и к первому элементу</li>
+</ul>
+</div></blockquote>
+<p>Тип аккумулятора, и, следовательно, тип возвращаемого значения, может отличаться от типа элемента массива.</p>
 <p>Например, если у вас массив строк, то результатом может быть массив каких-либо объектов, чисел и т.д.</p>
 <p>На базе Array.fold работают более изощренные функции, такие как Array.fold2, Array.foldBack</p>
 </div>

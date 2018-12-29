@@ -33,7 +33,12 @@ Array.fold
 .. image:: fold.png
     :height: 300px
 
-Принцип работы `Array.fold <https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.fold%5B%27t,%27state%5D-function-%5Bfsharp%5D?f=255&MSPPError=-2147217396>`_ такой же как у reduce, за исключением того, что аккумулятор инициализируете уже вы сами.
+Принцип работы `Array.fold <https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.fold%5B%27t,%27state%5D-function-%5Bfsharp%5D?f=255&MSPPError=-2147217396>`_ 
+почти такой же как у reduce. Основные отличия:
+
+ * аккумулятор инициализируете вы сами
+ * функция f применяется и к первому элементу
+
 Тип аккумулятора, и, следовательно, тип возвращаемого значения, может отличаться от типа элемента массива.
 
 Например, если у вас массив строк, то результатом может быть массив каких-либо объектов, чисел и т.д.
