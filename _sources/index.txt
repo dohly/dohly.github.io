@@ -14,6 +14,7 @@
 .. toctree::
    :maxdepth: 2
    
+   Array/index
    Array/zip
    Array/reduce
    about 
