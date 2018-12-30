@@ -3,3 +3,5 @@ node_modules
 /FableApp/.paket/paket.exe
 /_build/doctrees/Array/reduce.doctree
 /_build/doctrees/environment.pickle
+
+doctrees
