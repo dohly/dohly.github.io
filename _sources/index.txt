@@ -17,6 +17,7 @@
    Array/index
    Array/zip
    Array/reduce
+   Map/howto
    about 
 
 

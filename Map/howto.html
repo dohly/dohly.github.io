@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Array.zip &mdash; Документация Записки F# дилетанта 1.0</title>
+    <title>.NET Dictionary vs F# dict/Map &mdash; Документация Записки F# дилетанта 1.0</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="author" title="Об этих документах" href="../about.html" />
     <link rel="top" title="Документация Записки F# дилетанта 1.0" href="../index.html" />
-    <link rel="next" title="Array.reduce / Array.fold" href="reduce.html" />
-    <link rel="prev" title="Array" href="index.html" />
+    <link rel="next" title="About" href="../about.html" />
+    <link rel="prev" title="Array.reduce / Array.fold" href="../Array/reduce.html" />
   <meta name="yandex-verification" content="f80cba4c1e14f3ea" />
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125972316-1"></script>
@@ -58,20 +58,14 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="array-zip">
-<h1>Array.zip<a class="headerlink" href="#array-zip" title="Ссылка на этот заголовок">¶</a></h1>
-<a class="reference internal image-reference" href="../_images/zip.gif"><img alt="../_images/zip.gif" src="../_images/zip.gif" style="height: 200px;" /></a>
-<dl class="docutils">
-<dt>Функция <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.zip%5B%27t1,%27t2%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.zip</a>:</dt>
-<dd><ul class="first last simple">
-<li>принимает на вход два массива одинаковой длины</li>
-<li>возвращает массив кортежей, где каждый кортеж состоиз из соотв. элементов исходных массивов</li>
-<li>если длина массивов разная - выбросит исключение</li>
+  <div class="section" id="net-dictionary-vs-f-dict-map">
+<h1>.NET Dictionary vs F# dict/Map<a class="headerlink" href="#net-dictionary-vs-f-dict-map" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Алгоритм выбора lookup.</p>
+<ul class="simple">
+<li>Cтандартные словари дотнета более производительные, чем F# Map</li>
+<li>.NET Dictionary не предназначен для работы с несколькими потоками</li>
 </ul>
-</dd>
-</dl>
-<p>Если вы хотите &#8220;склеить&#8221; 3 массива - используйте <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.zip3%5b't1,'t2,'t3%5d-function-%5bfsharp%5d">Array.zip3</a></p>
-<p>Для обратной операции есть функция <a class="reference external" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/array.unzip%5B%27t1,%27t2%5D-function-%5Bfsharp%5D?f=255&amp;MSPPError=-2147217396">Array.unzip</a></p>
+<img alt="../_images/lookup-select.png" src="../_images/lookup-select.png" />
 </div>
 
 
@@ -86,18 +80,18 @@
             </a></p>
 <h3><a href="../index.html">Оглавление</a></h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Array</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Array.zip</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reduce.html">Array.reduce / Array.fold</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Map/howto.html">.NET Dictionary vs F# dict/Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Array/index.html">Array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Array/zip.html">Array.zip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Array/reduce.html">Array.reduce / Array.fold</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">.NET Dictionary vs F# dict/Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="предыдущая глава">Array</a></li>
-      <li>Next: <a href="reduce.html" title="следующая глава">Array.reduce / Array.fold</a></li>
+      <li>Previous: <a href="../Array/reduce.html" title="предыдущая глава">Array.reduce / Array.fold</a></li>
+      <li>Next: <a href="../about.html" title="следующая глава">About</a></li>
   </ul></li>
 </ul>
 </div>
@@ -123,7 +117,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/Array/zip.txt"
+      <a href="../_sources/Map/howto.txt"
           rel="nofollow">Page source</a>
     </div>
 
