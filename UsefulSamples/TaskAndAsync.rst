@@ -6,7 +6,7 @@ Mix Task and Async easy!
       open System.Threading.Tasks
 
       type TaskAndAsync()=
-          member __.ReturnFrom(x:Task)=Async.AwaitTast x
+          member __.ReturnFrom(x:Task)=Async.AwaitTask x
           member __.ReturnFrom(x:Task<_>)=Async.AwaitTask x
           member __.ReturnFrom(x:Async<_>)=x
 

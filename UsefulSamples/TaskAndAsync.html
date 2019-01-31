@@ -63,7 +63,7 @@
 <div class="highlight-fsharp"><div class="highlight"><pre><span></span><span class="k">open</span> <span class="nn">System.Threading.Tasks</span>
 
 <span class="k">type</span> <span class="nc">TaskAndAsync</span><span class="bp">()</span><span class="o">=</span>
-    <span class="k">member</span> <span class="n">__</span><span class="p">.</span><span class="nf">ReturnFrom</span><span class="o">(</span><span class="n">x</span><span class="o">:</span><span class="n">Task</span><span class="o">)=</span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTast</span> <span class="n">x</span>
+    <span class="k">member</span> <span class="n">__</span><span class="p">.</span><span class="nf">ReturnFrom</span><span class="o">(</span><span class="n">x</span><span class="o">:</span><span class="n">Task</span><span class="o">)=</span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span> <span class="n">x</span>
     <span class="k">member</span> <span class="n">__</span><span class="p">.</span><span class="nf">ReturnFrom</span><span class="o">(</span><span class="n">x</span><span class="o">:</span><span class="n">Task</span><span class="o">&lt;_&gt;)=</span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span> <span class="n">x</span>
     <span class="k">member</span> <span class="n">__</span><span class="p">.</span><span class="nf">ReturnFrom</span><span class="o">(</span><span class="n">x</span><span class="o">:</span><span class="n">Async</span><span class="o">&lt;_&gt;)=</span><span class="n">x</span>
 
