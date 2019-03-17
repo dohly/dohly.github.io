@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>.NET Dictionary vs F# dict/Map &mdash; Документация Записки F# дилетанта 1.0</title>
+    <title>Option converter for Newtonsoft! &mdash; Документация Записки F# дилетанта 1.0</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="author" title="Об этих документах" href="../about.html" />
     <link rel="top" title="Документация Записки F# дилетанта 1.0" href="../index.html" />
-    <link rel="next" title="Mix Task and Async easy!" href="../UsefulSamples/TaskAndAsync.html" />
-    <link rel="prev" title="Array.reduce / Array.fold" href="../Array/reduce.html" />
+    <link rel="next" title="About" href="../about.html" />
+    <link rel="prev" title="Mix Task and Async easy!" href="TaskAndAsync.html" />
   <meta name="yandex-verification" content="f80cba4c1e14f3ea" />
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125972316-1"></script>
@@ -58,14 +58,53 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="net-dictionary-vs-f-dict-map">
-<h1>.NET Dictionary vs F# dict/Map<a class="headerlink" href="#net-dictionary-vs-f-dict-map" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Алгоритм выбора lookup.</p>
-<ul class="simple">
-<li>Cтандартные словари дотнета более производительные, чем F# Map</li>
-<li>.NET Dictionary не предназначен для работы с несколькими потоками</li>
-</ul>
-<img alt="../_images/lookup-select.png" src="../_images/lookup-select.png" />
+  <div class="section" id="option-converter-for-newtonsoft">
+<h1>Option converter for Newtonsoft!<a class="headerlink" href="#option-converter-for-newtonsoft" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="highlight-fsharp"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>//      Ayrat Hudaygulov, [17.03.19 00:52] <a class="reference external" href="https://t.me/fsharp_chat">https://t.me/fsharp_chat</a>
+/// For Some 1 genereates &#8220;1&#8221;, for None generates &#8220;null&#8221;
+type OptionConverter() =</p>
+<blockquote>
+<div><blockquote>
+<div><p>inherit JsonConverter()</p>
+<p>override x.CanConvert(typ) = typ.IsGenericType &amp;&amp; typ.GetGenericTypeDefinition() = typedefof&lt;option&lt;_&gt;&gt;</p>
+<dl class="docutils">
+<dt>override x.WriteJson(writer, value, serializer) =</dt>
+<dd><dl class="first docutils">
+<dt>let value =</dt>
+<dd><p class="first">if isNull value then null
+else</p>
+<blockquote class="last">
+<div>let _,fields = FSharpValue.GetUnionFields(value, value.GetType())
+fields.[0]</div></blockquote>
+</dd>
+</dl>
+<p class="last">serializer.Serialize(writer, value)</p>
+</dd>
+<dt>override x.ReadJson(reader, typ, existingValue, serializer) =</dt>
+<dd><dl class="first docutils">
+<dt>let innerType =</dt>
+<dd>let innerType = typ.GetGenericArguments().[0]
+if innerType.IsValueType then typedefof&lt;Nullable&lt;_&gt;&gt;.MakeGenericType([<a href="#id1"><span class="problematic" id="id2">|innerType|</span></a>])
+else innerType</dd>
+</dl>
+<p>let cases = Util.getAndCacheUnionCases typ
+if reader.TokenType = JsonToken.Null then FSharpValue.MakeUnion(cases.[0], Array.empty)
+else</p>
+<blockquote class="last">
+<div>let value = serializer.Deserialize(reader, innerType)
+if isNull value then FSharpValue.MakeUnion(cases.[0], Array.empty)
+else FSharpValue.MakeUnion(cases.[1], [<a href="#id3"><span class="problematic" id="id4">|value|</span></a>])</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<p>///......</p>
+</div></blockquote>
+<p>let s = new JsonSerializer()
+s.Converters.Add(new OptionConverter())</p>
+<p>s.Serialize(someObject)</p>
 </div>
 
 
@@ -83,17 +122,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../Array/index.html">Array</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Array/zip.html">Array.zip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Array/reduce.html">Array.reduce / Array.fold</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">.NET Dictionary vs F# dict/Map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../UsefulSamples/TaskAndAsync.html">Mix Task and Async easy!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../UsefulSamples/OptionJson.html">Option converter for Newtonsoft!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Map/howto.html">.NET Dictionary vs F# dict/Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TaskAndAsync.html">Mix Task and Async easy!</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Option converter for Newtonsoft!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../Array/reduce.html" title="предыдущая глава">Array.reduce / Array.fold</a></li>
-      <li>Next: <a href="../UsefulSamples/TaskAndAsync.html" title="следующая глава">Mix Task and Async easy!</a></li>
+      <li>Previous: <a href="TaskAndAsync.html" title="предыдущая глава">Mix Task and Async easy!</a></li>
+      <li>Next: <a href="../about.html" title="следующая глава">About</a></li>
   </ul></li>
 </ul>
 </div>
@@ -119,7 +158,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/Map/howto.txt"
+      <a href="../_sources/UsefulSamples/OptionJson.txt"
           rel="nofollow">Page source</a>
     </div>
 
