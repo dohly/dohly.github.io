@@ -60,51 +60,41 @@
             
   <div class="section" id="option-converter-for-newtonsoft">
 <h1>Option converter for Newtonsoft!<a class="headerlink" href="#option-converter-for-newtonsoft" title="Ссылка на этот заголовок">¶</a></h1>
-<div class="highlight-fsharp"><div class="highlight"><pre><span></span>
+<div class="highlight-fsharp"><div class="highlight"><pre><span></span><span class="c1">//      Ayrat Hudaygulov, [17.03.19 00:52] https://t.me/fsharp_chat</span>
+<span class="sd">/// For Some 1 genereates &quot;1&quot;, for None generates &quot;null&quot;</span>
+<span class="k">type</span> <span class="nc">OptionConverter</span><span class="bp">()</span> <span class="o">=</span>
+    <span class="k">inherit</span> <span class="n">JsonConverter</span><span class="bp">()</span>
+
+    <span class="k">override</span> <span class="n">x</span><span class="p">.</span><span class="nf">CanConvert</span><span class="o">(</span><span class="n">typ</span><span class="o">)</span> <span class="o">=</span> <span class="n">typ</span><span class="o">.</span><span class="n">IsGenericType</span> <span class="o">&amp;&amp;</span> <span class="n">typ</span><span class="o">.</span><span class="n">GetGenericTypeDefinition</span><span class="bp">()</span> <span class="o">=</span> <span class="n">typedefof</span><span class="o">&lt;</span><span class="n">option</span><span class="o">&lt;_&gt;&gt;</span>
+
+    <span class="k">override</span> <span class="n">x</span><span class="p">.</span><span class="nf">WriteJson</span><span class="o">(</span><span class="n">writer</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">serializer</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">let</span> <span class="nv">value</span> <span class="o">=</span>
+            <span class="k">if</span> <span class="n">isNull</span> <span class="n">value</span> <span class="k">then</span> <span class="k">null</span>
+            <span class="k">else</span>
+                <span class="k">let</span> <span class="nv">_</span><span class="o">,</span><span class="n">fields</span> <span class="o">=</span> <span class="nn">FSharpValue</span><span class="p">.</span><span class="n">GetUnionFields</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">value</span><span class="o">.</span><span class="n">GetType</span><span class="bp">()</span><span class="o">)</span>
+                <span class="n">fields</span><span class="o">.[</span><span class="mi">0</span><span class="o">]</span>
+        <span class="n">serializer</span><span class="o">.</span><span class="n">Serialize</span><span class="o">(</span><span class="n">writer</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span>
+
+    <span class="k">override</span> <span class="n">x</span><span class="p">.</span><span class="nf">ReadJson</span><span class="o">(</span><span class="n">reader</span><span class="o">,</span> <span class="n">typ</span><span class="o">,</span> <span class="n">existingValue</span><span class="o">,</span> <span class="n">serializer</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">let</span> <span class="nv">innerType</span> <span class="o">=</span>
+            <span class="k">let</span> <span class="nv">innerType</span> <span class="o">=</span> <span class="n">typ</span><span class="o">.</span><span class="n">GetGenericArguments</span><span class="bp">()</span><span class="o">.[</span><span class="mi">0</span><span class="o">]</span>
+            <span class="k">if</span> <span class="n">innerType</span><span class="o">.</span><span class="n">IsValueType</span> <span class="k">then</span> <span class="n">typedefof</span><span class="o">&lt;</span><span class="n">Nullable</span><span class="o">&lt;_&gt;&gt;.</span><span class="n">MakeGenericType</span><span class="o">([|</span><span class="n">innerType</span><span class="o">|])</span>
+            <span class="k">else</span> <span class="n">innerType</span>
+
+        <span class="k">let</span> <span class="nv">cases</span> <span class="o">=</span> <span class="nn">Util</span><span class="p">.</span><span class="n">getAndCacheUnionCases</span> <span class="n">typ</span>
+        <span class="k">if</span> <span class="n">reader</span><span class="o">.</span><span class="n">TokenType</span> <span class="o">=</span> <span class="nn">JsonToken</span><span class="p">.</span><span class="n">Null</span> <span class="k">then</span> <span class="nn">FSharpValue</span><span class="p">.</span><span class="n">MakeUnion</span><span class="o">(</span><span class="n">cases</span><span class="o">.[</span><span class="mi">0</span><span class="o">],</span> <span class="nn">Array</span><span class="p">.</span><span class="n">empty</span><span class="o">)</span>
+        <span class="k">else</span>
+            <span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">Deserialize</span><span class="o">(</span><span class="n">reader</span><span class="o">,</span> <span class="n">innerType</span><span class="o">)</span>
+            <span class="k">if</span> <span class="n">isNull</span> <span class="n">value</span> <span class="k">then</span> <span class="nn">FSharpValue</span><span class="p">.</span><span class="n">MakeUnion</span><span class="o">(</span><span class="n">cases</span><span class="o">.[</span><span class="mi">0</span><span class="o">],</span> <span class="nn">Array</span><span class="p">.</span><span class="n">empty</span><span class="o">)</span>
+            <span class="k">else</span> <span class="nn">FSharpValue</span><span class="p">.</span><span class="n">MakeUnion</span><span class="o">(</span><span class="n">cases</span><span class="o">.[</span><span class="mi">1</span><span class="o">],</span> <span class="o">[|</span><span class="n">value</span><span class="o">|])</span>
+
+ <span class="sd">///......</span>
+<span class="k">let</span> <span class="nv">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JsonSerializer</span><span class="bp">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">Converters</span><span class="o">.</span><span class="n">Add</span><span class="o">(</span><span class="k">new</span> <span class="n">OptionConverter</span><span class="bp">()</span><span class="o">)</span>
+
+<span class="n">s</span><span class="o">.</span><span class="n">Serialize</span><span class="o">(</span><span class="n">someObject</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>//      Ayrat Hudaygulov, [17.03.19 00:52] <a class="reference external" href="https://t.me/fsharp_chat">https://t.me/fsharp_chat</a>
-/// For Some 1 genereates &#8220;1&#8221;, for None generates &#8220;null&#8221;
-type OptionConverter() =</p>
-<blockquote>
-<div><blockquote>
-<div><p>inherit JsonConverter()</p>
-<p>override x.CanConvert(typ) = typ.IsGenericType &amp;&amp; typ.GetGenericTypeDefinition() = typedefof&lt;option&lt;_&gt;&gt;</p>
-<dl class="docutils">
-<dt>override x.WriteJson(writer, value, serializer) =</dt>
-<dd><dl class="first docutils">
-<dt>let value =</dt>
-<dd><p class="first">if isNull value then null
-else</p>
-<blockquote class="last">
-<div>let _,fields = FSharpValue.GetUnionFields(value, value.GetType())
-fields.[0]</div></blockquote>
-</dd>
-</dl>
-<p class="last">serializer.Serialize(writer, value)</p>
-</dd>
-<dt>override x.ReadJson(reader, typ, existingValue, serializer) =</dt>
-<dd><dl class="first docutils">
-<dt>let innerType =</dt>
-<dd>let innerType = typ.GetGenericArguments().[0]
-if innerType.IsValueType then typedefof&lt;Nullable&lt;_&gt;&gt;.MakeGenericType([<a href="#id1"><span class="problematic" id="id2">|innerType|</span></a>])
-else innerType</dd>
-</dl>
-<p>let cases = Util.getAndCacheUnionCases typ
-if reader.TokenType = JsonToken.Null then FSharpValue.MakeUnion(cases.[0], Array.empty)
-else</p>
-<blockquote class="last">
-<div>let value = serializer.Deserialize(reader, innerType)
-if isNull value then FSharpValue.MakeUnion(cases.[0], Array.empty)
-else FSharpValue.MakeUnion(cases.[1], [<a href="#id3"><span class="problematic" id="id4">|value|</span></a>])</div></blockquote>
-</dd>
-</dl>
-</div></blockquote>
-<p>///......</p>
-</div></blockquote>
-<p>let s = new JsonSerializer()
-s.Converters.Add(new OptionConverter())</p>
-<p>s.Serialize(someObject)</p>
 </div>
 
 
